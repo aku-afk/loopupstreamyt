@@ -9,8 +9,8 @@ FPS="30"                                       # FPS de la vidéo en sortie
 QUAL="medium"                                  # Preset de qualité FFMPEG
 YOUTUBE_URL="rtmp://a.rtmp.youtube.com/live2"  # URL de base RTMP youtube
 
-SOURCE="/home/mamat/Downloads/start.mp4"              # Source UDP (voir les annonces SAP)
-KEY="b356-fzyq-941h-11tm-3p4e"                 # Clé à récupérer sur l'event youtube
+SOURCE=""              # Source UDP (voir les annonces SAP)
+KEY=""                 # Clé à récupérer sur l'event youtube
 
 ffmpeg \
     -stream_loop -1 -i "$SOURCE" -deinterlace \
