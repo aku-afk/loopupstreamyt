@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 #
 # Diffusion youtube avec ffmpeg
 
@@ -9,8 +9,8 @@ FPS="30"                                       # FPS de la vidéo en sortie
 QUAL="medium"                                  # Preset de qualité FFMPEG
 YOUTUBE_URL="rtmp://a.rtmp.youtube.com/live2"  # URL de base RTMP youtube
 
-SOURCE=""              # Source UDP (voir les annonces SAP)
-KEY=""                                     # Clé à récupérer sur l'event youtube
+SOURCE="/mnt/c/tempvid/start.mp4"              # Source UDP (voir les annonces SAP)
+KEY="q9gt-vy9a-zsxh-434k-09v6"                 # Clé à récupérer sur l'event youtube
 
 ffmpeg \
     -stream_loop -1 -i "$SOURCE" -deinterlace \
