@@ -9,11 +9,18 @@ FPS="30"                                       # FPS de la vidéo en sortie
 QUAL="medium"                                  # Preset de qualité FFMPEG
 YOUTUBE_URL="rtmp://a.rtmp.youtube.com/live2"  # URL de base RTMP youtube
 
-SOURCE=""              # Source UDP (voir les annonces SAP)
+SOURCE_VID=""              # .mp4
+SOURCE_AUD=""              # .mp3
 KEY=""                 # Clé à récupérer sur l'event youtube
 
 ffmpeg \
-    -stream_loop -1 -i "$SOURCE" -deinterlace \
-    -vcodec libx264 -pix_fmt yuv420p -preset $QUAL -r $FPS -g $(($FPS * 2)) -b:v $VBR \
-    -acodec libmp3lame -ar 44100 -threads 6 -qscale 3 -b:a 712000 -bufsize 512k \
-    -f flv "$YOUTUBE_URL/$KEY"
+ -stream_loop -1 \
+ -re \
+ -i "$SOURCE_VID" \
+ -thread_queue_size 512 \
+ -stream_loop -1 \
+ -i "$SOURCE_AUD" \
+ -c:v libx264 -preset "$QUAL" -r "$FPS" -g "$FPS" -b:v "$VBR" \
+ -c:a aac -threads 6 -ar 44100 -b:a 128k -bufsize 512k -pix_fmt yuv420p -s 1920x1080 \
+ -fflags +shortest -max_interleave_delta 50000 \
+ -f flv "$YOUTUBE_URL/$KEY"
